@@ -11,18 +11,14 @@ namespace Lab2
     {
         public DbSet<PokemonEntry> PokemonEntries { get; set; }
 
+        public Pokedex()
+        {
+            Database.EnsureCreated();
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(@"Data Source=pokedex.db");
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    //modelBuilder.Entity<PokemonEntry>().HasKey(p => p.Id);
-        //    //modelBuilder.Entity<PokemonEntry>().Property(p => p.Name).IsRequired();
-        //    modelBuilder.Entity<PokemonEntry>().HasData(
-        //        new PokemonEntry() { Id = 1, Name = "Bulbasaur", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" }
-        //        );
-        //}
     }
 }
