@@ -116,11 +116,11 @@
             // 
             // button4
             // 
-            button4.Location = new Point(487, 272);
+            button4.Location = new Point(687, 286);
             button4.Name = "button4";
             button4.Size = new Size(75, 23);
             button4.TabIndex = 8;
-            button4.Text = "button4";
+            button4.Text = "Przykładowe";
             button4.UseVisualStyleBackColor = true;
             button4.Click += button4_Click;
             // 
