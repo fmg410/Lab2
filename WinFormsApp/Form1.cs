@@ -45,12 +45,11 @@ namespace WinFormsApp
             //Console.WriteLine(var.name);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             string name = searchPokemon.Text;
             name = name.ToLower();
-            
-            //GetData(name).Wait();
+
             var pokemon = pokedex.PokemonEntries.Where(p => p.Name.ToLower() == name).FirstOrDefault();
             if (pokemon != null)
             {
@@ -59,7 +58,21 @@ namespace WinFormsApp
             }
             else
             {
-                MessageBox.Show("Pokemon not found");
+                string call = "https://pokeapi.co/api/v2/pokemon/" + name;
+                string response = "";
+                try
+                {
+                    response = await client.GetStringAsync(call);
+                } catch (Exception ex)
+                {
+
+                }
+                dynamic var = JObject.Parse(response); // wywala
+                PokemonEntry p = new PokemonEntry() { Id = var.id, Name = var.name, FrontDefault = var.sprites.front_default };
+                pokedex.PokemonEntries.Add(p);
+                pokedex.SaveChanges();
+                refresh();
+                listBoxPokemon.SelectedItem = p;
             }
 
         }
@@ -87,16 +100,16 @@ namespace WinFormsApp
 
         private void button4_Click(object sender, EventArgs e)
         {
-            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 35, Name = "Clefairy", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png" });
-            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 36, Name = "Vulpix", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png" });
-            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 37, Name = "Ninetales", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png" });
-            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 38, Name = "Jigglypuff", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png" });
-            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 39, Name = "Wigglytuff", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/40.png" });
-            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 40, Name = "Zubat", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/41.png" });
-            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 41, Name = "Golbat", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/42.png" });
-            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 42, Name = "Oddish", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/43.png" });
-            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 43, Name = "Gloom", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/44.png" });
-            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 44, Name = "Vileplume", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png" });
+            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 35, Name = "clefairy", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png" });
+            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 36, Name = "vulpix", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png" });
+            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 37, Name = "ninetales", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png" });
+            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 38, Name = "jigglypuff", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png" });
+            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 39, Name = "wigglytuff", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/40.png" });
+            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 40, Name = "zubat", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/41.png" });
+            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 41, Name = "golbat", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/42.png" });
+            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 42, Name = "oddish", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/43.png" });
+            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 43, Name = "gloom", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/44.png" });
+            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = 44, Name = "vileplume", FrontDefault = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png" });
 
             pokedex.SaveChanges();
             refresh();
