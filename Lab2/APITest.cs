@@ -17,7 +17,7 @@ namespace Lab2
         {
             client = new HttpClient();
         }
-        public async Task GetData(Pokedex pokedex, string name)
+        public async Task GetData(Pokedex pokedex)
         {
             //string call = "https://pokeapi.co/api/v2/pokemon-species/413/";
             string call = "https://pokeapi.co/api/v2/pokemon/charizard/";

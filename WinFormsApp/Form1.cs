@@ -38,9 +38,7 @@ namespace WinFormsApp
         {
             string name = searchPokemon.Text;
             name = name.ToLower();
-            APITest t = new APITest();
-            t.GetData(pokedex, name).Wait();
-            //GetData(name).Wait();
+            GetData(name).Wait();
 
             //pictureBox1.Image = Image.FromFile("C:\\Users\\User\\source\\repos\\WinFormsApp\\WinFormsApp\\bin\\Debug\\net5.0-windows\\dotnet.png");
             //pictureBox1.Load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png");
