@@ -28,9 +28,9 @@ namespace WinFormsApp
             {
                 Console.WriteLine(e.Message);
             }
-            dynamic var = JObject.Parse(response);
-            pokedex.PokemonEntries.Add(new PokemonEntry() { Id = var.id, Name = var.name, FrontDefault = var.sprites.front_default });
-            pokedex.SaveChanges();
+            //dynamic var = JObject.Parse(response);
+            //pokedex.PokemonEntries.Add(new PokemonEntry() { Id = var.id, Name = var.name, FrontDefault = var.sprites.front_default });
+            //pokedex.SaveChanges();
             //Console.WriteLine(var.name);
         }
 
@@ -38,7 +38,9 @@ namespace WinFormsApp
         {
             string name = searchPokemon.Text;
             name = name.ToLower();
-            GetData(name).Wait();
+            APITest t = new APITest();
+            t.GetData(pokedex, name).Wait();
+            //GetData(name).Wait();
 
             //pictureBox1.Image = Image.FromFile("C:\\Users\\User\\source\\repos\\WinFormsApp\\WinFormsApp\\bin\\Debug\\net5.0-windows\\dotnet.png");
             //pictureBox1.Load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png");
